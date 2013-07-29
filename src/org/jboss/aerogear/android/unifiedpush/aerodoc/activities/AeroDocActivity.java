@@ -52,7 +52,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
     private AeroDocApplication application;
     private Display display;
     private ProgressDialog dialog = null;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,7 +162,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
         dialog = showProgressDialog(getString(R.string.logout));
         application.logout(new LogoutCallback(), this);
     }
-    
+
     public ProgressDialog showProgressDialog(String message) {
         return ProgressDialog.show(this, getString(R.string.wait), message, true, true);
     }
@@ -178,20 +178,20 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
             dialog.dismiss();
         }
     }
-    
+
     public void displayErrorMessage(Exception e) {
         Log.e("Login", "An error occurrence", e);
         Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
     }
-    
+
     private static class LogoutCallback extends AbstractFragmentActivityCallback<Void> {
 
         private static final long serialVersionUID = 1L;
-        
+
         public LogoutCallback(Object... params) {
             super(serialVersionUID);
         }
-        
+
         @Override
         public void onSuccess(Void data) {
             AeroDocActivity activity = (AeroDocActivity) getFragmentActivity();
@@ -211,29 +211,29 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
 
         final String user;
         private static final long serialVersionUID = 1L;
-        
+
         public LoginCallback(String user) {
             super(serialVersionUID, user);
             this.user = user;
         }
-        
+
         @Override
         public void onSuccess(HeaderAndBody data) {
             AeroDocActivity activity = (AeroDocActivity) getFragmentActivity();
             String response = new String(data.getBody(), Charset.forName("UTF-8"));
             SaleAgent saleAgent = new Gson().fromJson(response, SaleAgent.class);
-            ((AeroDocApplication)activity.getApplication()).setSaleAgente(saleAgent);
-            ((AeroDocApplication)activity.getApplication()).registerDeviceOnPushServer(user);
+            ((AeroDocApplication) activity.getApplication()).setSaleAgente(saleAgent);
+            ((AeroDocApplication) activity.getApplication()).registerDeviceOnPushServer(user);
             activity.dismissDialog();
             activity.displayAvalableLeadsScreen();
         }
 
         @Override
-        public void onFailure(Exception e) {                
+        public void onFailure(Exception e) {
             AeroDocActivity activity = (AeroDocActivity) getFragmentActivity();
             activity.displayErrorMessage(e);
             activity.dismissDialog();
         }
     }
-    
+
 }

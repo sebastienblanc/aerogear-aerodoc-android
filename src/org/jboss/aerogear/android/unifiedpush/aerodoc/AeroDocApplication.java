@@ -55,9 +55,9 @@ public class AeroDocApplication extends Application {
     private Pipeline pipeline;
     private SQLStore<Lead> localStore;
     private SaleAgent saleAgent;
-    
+
     private final Authenticator authenticator = new Authenticator(BASE_BACKEND_URL);
-    
+
     public SaleAgent getSaleAgent() {
         return saleAgent;
     }
@@ -106,7 +106,7 @@ public class AeroDocApplication extends Application {
     }
 
     private void configureBackendAuthentication() {
-        
+
         AuthenticationConfig authenticationConfig = new AuthenticationConfig();
         authenticationConfig.setLoginEndpoint("/login");
         authenticationConfig.setLogoutEndpoint("/logout");
