@@ -26,27 +26,26 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.gson.Gson;
-import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.http.HeaderAndBody;
 import org.jboss.aerogear.android.unifiedpush.MessageHandler;
 import org.jboss.aerogear.android.unifiedpush.Registrar;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.AeroDocApplication;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.R;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.fragments.AeroDocLeadsAcceptedFragments;
-import org.jboss.aerogear.android.unifiedpush.aerodoc.fragments.AeroDocLeadsAvalableFragments;
+import org.jboss.aerogear.android.unifiedpush.aerodoc.fragments.AeroDocLeadsAvailableFragments;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.fragments.AeroDocLoginFragment;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.handler.NotifyingMessageHandler;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.model.MessageType;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.model.SaleAgent;
 
 import java.nio.charset.Charset;
-import org.jboss.aerogear.android.pipeline.AbstractActivityCallback;
+
 import org.jboss.aerogear.android.pipeline.support.AbstractFragmentActivityCallback;
 
 public class AeroDocActivity extends SherlockFragmentActivity implements MessageHandler {
 
     private enum Display {
-        LOGIN, AVALABLE_LEADS, LEADS_ACCEPTED
+        LOGIN, AVAILABLE_LEADS, LEADS_ACCEPTED
     }
 
     private AeroDocApplication application;
@@ -61,7 +60,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
         application = (AeroDocApplication) getApplication();
 
         if (application.isLoggedIn()) {
-            displayAvalableLeadsScreen();
+            displayAvailableLeadsScreen();
         } else {
             displayLoginScreen();
         }
@@ -93,8 +92,8 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
         case R.id.leads_accepted:
             displayLeadsAcceptedScreen();
             break;
-        case R.id.avalable_leads:
-            displayAvalableLeadsScreen();
+        case R.id.available_leads:
+            displayAvailableLeadsScreen();
             break;
         case R.id.refresh:
             updateLeads();
@@ -108,7 +107,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.setGroupVisible(R.id.menuAvalableLead, Display.AVALABLE_LEADS.equals(display));
+        menu.setGroupVisible(R.id.menuAvailableLead, Display.AVAILABLE_LEADS.equals(display));
         menu.setGroupVisible(R.id.menuLeadsAccepted, Display.LEADS_ACCEPTED.equals(display));
         menu.setGroupVisible(R.id.menuLogout, !Display.LOGIN.equals(display));
         return super.onPrepareOptionsMenu(menu);
@@ -136,8 +135,8 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
         displayFragment(Display.LOGIN, new AeroDocLoginFragment());
     }
 
-    private void displayAvalableLeadsScreen() {
-        displayFragment(Display.AVALABLE_LEADS, new AeroDocLeadsAvalableFragments());
+    private void displayAvailableLeadsScreen() {
+        displayFragment(Display.AVAILABLE_LEADS, new AeroDocLeadsAvailableFragments());
     }
 
     private void displayLeadsAcceptedScreen() {
@@ -168,7 +167,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
     }
 
     private void updateLeads() {
-        AeroDocLeadsAvalableFragments leadsFragments = (AeroDocLeadsAvalableFragments)
+        AeroDocLeadsAvailableFragments leadsFragments = (AeroDocLeadsAvailableFragments)
                 getSupportFragmentManager().findFragmentById(R.id.frame);
         leadsFragments.retrieveLeads();
     }
@@ -225,7 +224,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
             ((AeroDocApplication) activity.getApplication()).setSaleAgente(saleAgent);
             ((AeroDocApplication) activity.getApplication()).registerDeviceOnPushServer(user);
             activity.dismissDialog();
-            activity.displayAvalableLeadsScreen();
+            activity.displayAvailableLeadsScreen();
         }
 
         @Override

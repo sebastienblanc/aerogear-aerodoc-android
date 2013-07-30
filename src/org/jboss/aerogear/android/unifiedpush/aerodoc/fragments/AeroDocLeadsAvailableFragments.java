@@ -37,7 +37,7 @@ import java.util.List;
 
 import static android.R.layout.*;
 
-public class AeroDocLeadsAvalableFragments extends SherlockFragment {
+public class AeroDocLeadsAvailableFragments extends SherlockFragment {
 
     private AeroDocApplication application;
     private AeroDocActivity activity;
