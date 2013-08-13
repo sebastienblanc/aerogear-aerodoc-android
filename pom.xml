@@ -24,7 +24,7 @@
     <artifactId>aerodoc-android</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>apk</packaging>
-    <name>AeroDoc</name>
+    <name>AeroGear AeroDoc</name>
     <url>http://aerogear.org</url>
 
     <parent>
