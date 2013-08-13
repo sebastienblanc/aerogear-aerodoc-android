@@ -18,7 +18,6 @@ package org.jboss.aerogear.android.unifiedpush.aerodoc;
 
 import android.app.Application;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.widget.Toast;
 import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.DataManager;
@@ -33,13 +32,16 @@ import org.jboss.aerogear.android.impl.datamanager.StoreTypes;
 import org.jboss.aerogear.android.impl.pipeline.PipeConfig;
 import org.jboss.aerogear.android.pipeline.Pipe;
 import org.jboss.aerogear.android.unifiedpush.PushConfig;
-import org.jboss.aerogear.android.unifiedpush.Registrar;
+import org.jboss.aerogear.android.unifiedpush.PushRegistrar;
+import org.jboss.aerogear.android.unifiedpush.Registrations;
+import org.jboss.aerogear.android.unifiedpush.aerodoc.activities.AeroDocActivity;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.model.Lead;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.model.SaleAgent;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-import org.jboss.aerogear.android.unifiedpush.aerodoc.activities.AeroDocActivity;
 
 public class AeroDocApplication extends Application {
 
@@ -47,10 +49,12 @@ public class AeroDocApplication extends Application {
 
     private static final String BASE_BACKEND_URL = "";
 
-    private static final String REGISTER_SERVER_URL = "";
-    private static final String SENDER_ID = "";
+    private static final String UNIFIED_PUSH_URL = "";
+    private static final String GCM_SENDER_ID = "";
     private static final String VARIANT_ID = "";
     private static final String SECRET = "";
+
+    private final Registrations registrations = new Registrations();
 
     private Pipeline pipeline;
     private SQLStore<Lead> localStore;
@@ -78,28 +82,23 @@ public class AeroDocApplication extends Application {
     public void registerDeviceOnPushServer(String alias) {
 
         try {
+            PushConfig config = new PushConfig(new URI(UNIFIED_PUSH_URL), GCM_SENDER_ID);
+            config.setVariantID(VARIANT_ID);
+            config.setSecret(SECRET);
+            config.setAlias(alias);
 
-            final URL registerURL = new URL(REGISTER_SERVER_URL);
-            final Registrar r = new Registrar(registerURL);
-            PushConfig pushConfig = new PushConfig(SENDER_ID);
-            pushConfig.setVariantID(VARIANT_ID);
-            pushConfig.setSecret(SECRET);
-            pushConfig.setAlias(alias);
-
-            r.register(getApplicationContext(), pushConfig, new Callback<Void>() {
+            PushRegistrar registrar = registrations.push("registrar", config);
+            registrar.register(getApplicationContext(), new Callback<Void>() {
                 @Override
-                public void onSuccess(Void ignore) {
-                    Log.i(TAG, "Device registered");
+                public void onSuccess(Void data) {
                 }
 
                 @Override
                 public void onFailure(Exception e) {
-                    Log.e(TAG, e.getMessage(), e);
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
-        } catch (MalformedURLException e) {
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
@@ -108,8 +107,8 @@ public class AeroDocApplication extends Application {
     private void configureBackendAuthentication() {
 
         AuthenticationConfig authenticationConfig = new AuthenticationConfig();
-        authenticationConfig.setLoginEndpoint("/login");
-        authenticationConfig.setLogoutEndpoint("/logout");
+        authenticationConfig.setLoginEndpoint("/rest/login");
+        authenticationConfig.setLogoutEndpoint("/rest/logout");
         authenticator.auth("login", authenticationConfig);
     }
 
@@ -121,12 +120,12 @@ public class AeroDocApplication extends Application {
             pipeline = new Pipeline(serverURL);
 
             PipeConfig leadPipeConfig = new PipeConfig(serverURL, Lead.class);
-            leadPipeConfig.setEndpoint("leads");
+            leadPipeConfig.setEndpoint("/rest/leads");
             pipeline.pipe(Lead.class, leadPipeConfig);
 
             PipeConfig saleAgentPipeConfig = new PipeConfig(serverURL, SaleAgent.class);
             saleAgentPipeConfig.setName("agent");
-            saleAgentPipeConfig.setEndpoint("saleagents");
+            saleAgentPipeConfig.setEndpoint("/rest/saleagents");
             pipeline.pipe(SaleAgent.class, saleAgentPipeConfig);
 
         } catch (MalformedURLException e) {

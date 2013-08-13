@@ -24,7 +24,6 @@ public class SaleAgent implements Serializable {
 
     @RecordId
     private String id;
-    private boolean enable;
     private String loginName;
     private String firstName;
     private String lastName;
@@ -39,14 +38,6 @@ public class SaleAgent implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
     }
 
     public String getLoginName() {

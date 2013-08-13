@@ -27,8 +27,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.gson.Gson;
 import org.jboss.aerogear.android.http.HeaderAndBody;
+import org.jboss.aerogear.android.pipeline.support.AbstractFragmentActivityCallback;
 import org.jboss.aerogear.android.unifiedpush.MessageHandler;
-import org.jboss.aerogear.android.unifiedpush.Registrar;
+import org.jboss.aerogear.android.unifiedpush.Registrations;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.AeroDocApplication;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.R;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.fragments.AeroDocLeadsAcceptedFragments;
@@ -39,8 +40,6 @@ import org.jboss.aerogear.android.unifiedpush.aerodoc.model.MessageType;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.model.SaleAgent;
 
 import java.nio.charset.Charset;
-
-import org.jboss.aerogear.android.pipeline.support.AbstractFragmentActivityCallback;
 
 public class AeroDocActivity extends SherlockFragmentActivity implements MessageHandler {
 
@@ -69,15 +68,15 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
     @Override
     protected void onResume() {
         super.onResume();
-        Registrar.unregisterBackgroundThreadHandler(NotifyingMessageHandler.instance);
-        Registrar.registerMainThreadHandler(this);
+        Registrations.unregisterBackgroundThreadHandler(NotifyingMessageHandler.instance);
+        Registrations.registerMainThreadHandler(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Registrar.unregisterMainThreadHandler(this);
-        Registrar.registerBackgroundThreadHandler(NotifyingMessageHandler.instance);
+        Registrations.unregisterMainThreadHandler(this);
+        Registrations.registerBackgroundThreadHandler(NotifyingMessageHandler.instance);
     }
 
     @Override
