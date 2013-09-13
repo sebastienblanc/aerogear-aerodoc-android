@@ -21,6 +21,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +42,7 @@ import org.jboss.aerogear.android.unifiedpush.aerodoc.model.SaleAgent;
 
 import java.nio.charset.Charset;
 
-public class AeroDocActivity extends FragmentActivity implements MessageHandler {
+public class AeroDocActivity extends ActionBarActivity implements MessageHandler {
 
     private enum Display {
         LOGIN, AVAILABLE_LEADS, LEADS_ACCEPTED
@@ -144,7 +145,7 @@ public class AeroDocActivity extends FragmentActivity implements MessageHandler 
 
     private void displayFragment(Display display, Fragment fragment) {
         this.display = display;
-        this.invalidateOptionsMenu();
+        this.supportInvalidateOptionsMenu();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame, fragment)
