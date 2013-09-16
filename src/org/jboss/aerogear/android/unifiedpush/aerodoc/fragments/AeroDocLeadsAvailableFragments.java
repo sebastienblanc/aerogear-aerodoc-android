@@ -20,11 +20,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.actionbarsherlock.app.SherlockFragment;
 import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.pipeline.Pipe;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.AeroDocApplication;
@@ -37,7 +37,7 @@ import java.util.List;
 
 import static android.R.layout.*;
 
-public class AeroDocLeadsAvailableFragments extends SherlockFragment {
+public class AeroDocLeadsAvailableFragments extends Fragment {
 
     private AeroDocApplication application;
     private AeroDocActivity activity;

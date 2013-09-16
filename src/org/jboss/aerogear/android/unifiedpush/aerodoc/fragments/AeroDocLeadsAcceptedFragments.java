@@ -18,12 +18,12 @@ package org.jboss.aerogear.android.unifiedpush.aerodoc.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import com.actionbarsherlock.app.SherlockFragment;
 import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.pipeline.Pipe;
 import org.jboss.aerogear.android.unifiedpush.aerodoc.AeroDocApplication;
@@ -37,7 +37,7 @@ import java.util.Collection;
 
 import static android.R.layout.simple_list_item_1;
 
-public class AeroDocLeadsAcceptedFragments extends SherlockFragment {
+public class AeroDocLeadsAcceptedFragments extends Fragment {
 
     private AeroDocApplication application;
     private AeroDocActivity activity;
