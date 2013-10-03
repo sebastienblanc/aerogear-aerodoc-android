@@ -20,11 +20,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.gson.Gson;
 import org.jboss.aerogear.android.http.HeaderAndBody;
 import org.jboss.aerogear.android.pipeline.support.AbstractFragmentActivityCallback;
@@ -41,7 +42,7 @@ import org.jboss.aerogear.android.unifiedpush.aerodoc.model.SaleAgent;
 
 import java.nio.charset.Charset;
 
-public class AeroDocActivity extends SherlockFragmentActivity implements MessageHandler {
+public class AeroDocActivity extends ActionBarActivity implements MessageHandler {
 
     private enum Display {
         LOGIN, AVAILABLE_LEADS, LEADS_ACCEPTED
@@ -81,7 +82,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.leads, menu);
+        getMenuInflater().inflate(R.menu.leads, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -144,7 +145,7 @@ public class AeroDocActivity extends SherlockFragmentActivity implements Message
 
     private void displayFragment(Display display, Fragment fragment) {
         this.display = display;
-        this.invalidateOptionsMenu();
+        this.supportInvalidateOptionsMenu();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame, fragment)
