@@ -42,8 +42,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+
 
 public class AeroDocApplication extends Application {
 
@@ -85,12 +85,10 @@ public class AeroDocApplication extends Application {
 
         try {
             PushConfig config = new PushConfig(new URI(UNIFIED_PUSH_URL), GCM_SENDER_ID);
-            List<String> categories = new ArrayList<String>();
-            categories.add("lead");
             config.setVariantID(VARIANT_ID);
             config.setSecret(SECRET);
             config.setAlias(alias);
-            config.setCategories(categories);
+            config.setCategories(Arrays.asList("lead"));
 
             PushRegistrar registrar = registrations.push("registrar", config);
             registrar.register(getApplicationContext(), new Callback<Void>() {
