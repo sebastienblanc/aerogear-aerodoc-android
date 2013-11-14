@@ -42,6 +42,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
+
 
 public class AeroDocApplication extends Application {
 
@@ -86,6 +88,7 @@ public class AeroDocApplication extends Application {
             config.setVariantID(VARIANT_ID);
             config.setSecret(SECRET);
             config.setAlias(alias);
+            config.setCategories(Arrays.asList("lead"));
 
             PushRegistrar registrar = registrations.push("registrar", config);
             registrar.register(getApplicationContext(), new Callback<Void>() {
