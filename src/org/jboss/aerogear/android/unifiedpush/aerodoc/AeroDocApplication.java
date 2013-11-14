@@ -49,12 +49,12 @@ public class AeroDocApplication extends Application {
 
     private static final String TAG = AeroDocApplication.class.getSimpleName();
 
-    private static final String BASE_BACKEND_URL = "http://192.168.1.19:8080/aerodoc";
+    private static final String BASE_BACKEND_URL = "";
 
-    private static final String UNIFIED_PUSH_URL = "http://192.168.1.19:8080/ag-push";
-    private static final String GCM_SENDER_ID = "551917860768";
-    private static final String VARIANT_ID = "e0ba2908-53ee-42f9-a3af-c0dcbbbff3b9";
-    private static final String SECRET = "b81d0f78-c358-41a0-8d31-1ad649cc1bb9";
+    private static final String UNIFIED_PUSH_URL = "";
+    private static final String GCM_SENDER_ID = "";
+    private static final String VARIANT_ID = "";
+    private static final String SECRET = "";
 
     private final Registrations registrations = new Registrations();
 
