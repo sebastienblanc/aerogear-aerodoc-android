@@ -42,17 +42,19 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AeroDocApplication extends Application {
 
     private static final String TAG = AeroDocApplication.class.getSimpleName();
 
-    private static final String BASE_BACKEND_URL = "";
+    private static final String BASE_BACKEND_URL = "http://192.168.1.19:8080/aerodoc";
 
-    private static final String UNIFIED_PUSH_URL = "";
-    private static final String GCM_SENDER_ID = "";
-    private static final String VARIANT_ID = "";
-    private static final String SECRET = "";
+    private static final String UNIFIED_PUSH_URL = "http://192.168.1.19:8080/ag-push";
+    private static final String GCM_SENDER_ID = "551917860768";
+    private static final String VARIANT_ID = "e0ba2908-53ee-42f9-a3af-c0dcbbbff3b9";
+    private static final String SECRET = "b81d0f78-c358-41a0-8d31-1ad649cc1bb9";
 
     private final Registrations registrations = new Registrations();
 
@@ -83,9 +85,12 @@ public class AeroDocApplication extends Application {
 
         try {
             PushConfig config = new PushConfig(new URI(UNIFIED_PUSH_URL), GCM_SENDER_ID);
+            List<String> categories = new ArrayList<String>();
+            categories.add("lead");
             config.setVariantID(VARIANT_ID);
             config.setSecret(SECRET);
             config.setAlias(alias);
+            config.setCategories(categories);
 
             PushRegistrar registrar = registrations.push("registrar", config);
             registrar.register(getApplicationContext(), new Callback<Void>() {
