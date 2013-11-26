@@ -64,7 +64,6 @@
         <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
         <java.version>1.7</java.version>
 
-        <android.avd>19</android.avd>
         <android.platform>19</android.platform>
         <android.debug>true</android.debug>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -144,7 +143,7 @@
                         <platform>${android.platform}</platform>
                     </sdk>
                     <emulator>
-                        <avd>${android.avd}</avd>
+                        <avd>${android.platform}</avd>
                     </emulator>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
                     <proguard>
