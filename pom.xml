@@ -43,17 +43,9 @@
 
     <developers>
         <developer>
-            <id>passos</id>
-            <name>Daniel Passos</name>
-            <url>http://passos.me/</url>
-            <email>dpassos@redhat.com</email>
-        </developer>
-
-        <developer>
-            <id>secondsun</id>
-            <name>Summers Pittman</name>
-            <url>http://blog.sagaoftherealms.net/</url>
-            <email>supittma@redhat.com</email>
+            <id>aerogear</id>
+            <name>AeroGear Team</name>
+            <email>aerogear-dev@lists.jboss.org</email>
         </developer>
     </developers>
 
@@ -65,14 +57,13 @@
 
     <properties>
         <android.version>4.1.1.4</android.version>
-        <aerogear.version>1.3.0-SNAPSHOT</aerogear.version>
-        <appcompat.version>[18,)</appcompat.version>
+        <aerogear.version>1.3.0</aerogear.version>
+        <android.support.version>19.0.0</android.support.version>
 
         <maven.android.plugin.verson>3.8.0</maven.android.plugin.verson>
         <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
         <java.version>1.7</java.version>
 
-        <android.avd>19</android.avd>
         <android.platform>19</android.platform>
         <android.debug>true</android.debug>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -105,14 +96,14 @@
         <dependency>
             <groupId>android.support</groupId>
             <artifactId>compatibility-v7-appcompat</artifactId>
-            <version>${appcompat.version}</version>
+            <version>${android.support.version}</version>
             <type>jar</type>
         </dependency>
 
         <dependency>
             <groupId>android.support</groupId>
             <artifactId>compatibility-v7-appcompat</artifactId>
-            <version>${appcompat.version}</version>
+            <version>${android.support.version}</version>
             <type>apklib</type>
         </dependency>
 
@@ -152,7 +143,7 @@
                         <platform>${android.platform}</platform>
                     </sdk>
                     <emulator>
-                        <avd>${android.avd}</avd>
+                        <avd>${android.platform}</avd>
                     </emulator>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
                     <proguard>
